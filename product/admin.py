@@ -6,7 +6,7 @@ from .models import Products, Category, Review
 
 @admin.register(Products)
 class ProductsAdmin(admin.ModelAdmin):
-    list_display = ['designer__username','product_name', 'category__category_name', 'brand', 'price']
+    list_display = ['designer__username','product_name', 'categories__category_name', 'brand', 'price']
     list_filter = ['product_name',]
 
 

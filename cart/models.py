@@ -3,7 +3,7 @@ from product.models import Products
 from users.models import User
     
 class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart', null=True)
     # Remove the 'products' field as it's managed through 'cart_items'
 
     def total_amount(self):
