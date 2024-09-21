@@ -169,7 +169,7 @@ STATIC_URL = 'static/'
 
 
 MEDIA_BASE_URL = 'https://res.cloudinary.com/'
-MEDIA_URL = f'{MEDIA_BASE_URL}{env('CLOUD_NAME')}/media/'
+MEDIA_URL = MEDIA_BASE_URL + env('CLOUD_NAME') + '/media/'
 
 MEDIA_ROOT = BASE_DIR/'media'
 
