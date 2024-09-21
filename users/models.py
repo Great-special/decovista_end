@@ -25,14 +25,18 @@ class UserDetails(models.Model):
     def __str__(self) -> str:
         return self.user_id.username
     
+    def get_image(self):
+        return self.profile_picture.url if self.profile_picture else None
+    
 
 class DesignerDetails(models.Model):    
     user_details = models.OneToOneField(User, on_delete=models.CASCADE, related_name='designer_details')
+    contact_number = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
     years_of_experience = models.CharField(max_length=100)
     specializations = models.CharField(max_length=100)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     portfolio = models.CharField(max_length=100)
-    portfolio_link = models.URLField(max_length=200, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     
     def __str__(self):

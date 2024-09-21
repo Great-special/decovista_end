@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +30,12 @@ SECRET_KEY = 'django-insecure-a8g(uiq$j_v@21f5=i#)3z*vt%=&@276653vwsdy7w$nd2!3i!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.circumeo-apps.net']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://a2w-creative-ampere.circumeo-apps.net',
+    "https://decovista-api.vercel.app",
+]
 
 # Application definition
 
@@ -44,6 +52,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
+    # 'cloudinary',
+    # 'cloudinary_storage',
     
     # Our apps
     'appointment.apps.AppointmentConfig',
@@ -58,6 +68,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,12 +104,40 @@ WSGI_APPLICATION = 'decovista_end.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# django-environ
+# env = environ.Env(
+#     DEBUG=(bool, False)
+# )
+
+# reading .env file
+# environ.Env.read_env(BASE_DIR/'.env')
+#  replace config with env
+
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
+
+#  Media Files
+# cloudinary.config = {
+#     'CLOUD_NAME': config('CLOUD_NAME'),
+#     'API_KEY': config('API_KEY'),
+#     'API_SECRET': config('API_SECRET'),
+# }
+
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Password validation
@@ -136,7 +175,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR/'static_files'
 
+
+# MEDIA_BASE_URL = 'https://res.cloudinary.com/' + config('CLOUD_NAME')
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR/'media'
@@ -188,9 +230,10 @@ DJOSER = {
 }
 
 
+
 # CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "https://your-frontend-domain.com",  # If you have a production domain
+#     "https://decovista-api.vercel.app",
+#     "https://a2w-creative-ampere.circumeo-apps.net",  # If you have a production domain
 # ]
 
 CORS_ALLOW_ALL_ORIGINS = True
