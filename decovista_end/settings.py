@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import environ
+
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,13 +97,14 @@ WSGI_APPLICATION = 'decovista_end.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+# django-environ
+# env = environ.Env(
+#     DEBUG=(bool, False)
+# )
 
 # reading .env file
-environ.Env.read_env(BASE_DIR/'.env')
-
+# environ.Env.read_env(BASE_DIR/'.env')
+#  replace config with env
 
 DATABASES = {
     # 'default': {
@@ -112,19 +114,19 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST', default='localhost'),
-        'PORT': env('DB_PORT', default='5432'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
 #  Media Files
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUD_NAME'),
-    'API_KEY': env('API_KEY'),
-    'API_SECRET': env('API_SECRET'),
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
 }
 
 
@@ -169,7 +171,7 @@ STATIC_URL = 'static/'
 
 
 MEDIA_BASE_URL = 'https://res.cloudinary.com/'
-MEDIA_URL = MEDIA_BASE_URL + env('CLOUD_NAME') + '/media/'
+MEDIA_URL = MEDIA_BASE_URL + config('CLOUD_NAME') + '/media/'
 
 MEDIA_ROOT = BASE_DIR/'media'
 
