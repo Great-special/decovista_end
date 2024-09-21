@@ -32,6 +32,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.circumeo-apps.net']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://a2w-creative-ampere.circumeo-apps.net',
+    "https://decovista-api.vercel.app",
+]
 
 # Application definition
 
@@ -225,9 +229,10 @@ DJOSER = {
 }
 
 
-CORS_ALLOWED_ORIGINS = [
-    ".https://decovista-api.vercel.app",
-    "https://a2w-creative-ampere.circumeo-apps.net",  # If you have a production domain
-]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://decovista-api.vercel.app",
+#     "https://a2w-creative-ampere.circumeo-apps.net",  # If you have a production domain
+# ]
 
 CORS_ALLOW_ALL_ORIGINS = True
