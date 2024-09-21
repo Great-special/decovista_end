@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Third party apps
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -186,3 +188,9 @@ DJOSER = {
 }
 
 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+#     "https://your-frontend-domain.com",  # If you have a production domain
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
