@@ -72,7 +72,6 @@ class CustomUserCreateSerializer(serializers.ModelSerializer):
             designer_details.specializations = designer_details_data.get('specializations', designer_details.specializations)
             designer_details.profile_picture = designer_details_data.get('profile_picture', designer_details.profile_picture)
             designer_details.portfolio = designer_details_data.get('portfolio', designer_details.portfolio)
-            designer_details.portfolio_link = designer_details_data.get('portfolio_link', designer_details.portfolio_link)
             designer_details.bio = designer_details_data.get('bio', designer_details.bio)
             designer_details.save()
 
