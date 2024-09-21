@@ -1,17 +1,40 @@
-from django.db import models
-from django.contrib.auth.models import User
-from product.models import Products 
+from rest_framework import serializers
+from .models import Cart, CartItem
 
-class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ['id', 'product', 'quantity']
 
-    def __str__(self):
-        return f"Cart of {self.user.username}"
+class CartSerializer(serializers.ModelSerializer):
+    cart_items = CartItemSerializer(many=True)  # Nested serializer for cart items
 
-class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    class Meta:
+        model = Cart
+        fields = ['id', 'products', 'cart_items', 'total_amount']
 
-    def __str__(self):
-        return f"{self.quantity} of {self.product.product_name}"
+    def create(self, validated_data):
+        cart_items_data = validated_data.pop('cart_items')
+        cart = Cart.objects.create(**validated_data)
+        for item_data in cart_items_data:
+            CartItem.objects.create(cart=cart, **item_data)
+        return cart
+
+    def update(self, instance, validated_data):
+        cart_items_data = validated_data.pop('cart_items', [])
+        instance.products.set(validated_data.get('products', instance.products))
+
+        # Update or create cart items
+        for item_data in cart_items_data:
+            item_id = item_data.get('id')
+            if item_id:
+                # Update existing cart item
+                item = CartItem.objects.get(id=item_id, cart=instance)
+                item.quantity = item_data.get('quantity', item.quantity)
+                item.save()
+            else:
+                # Create new cart item
+                CartItem.objects.create(cart=instance, **item_data)
+
+        instance.save()
+        return instance

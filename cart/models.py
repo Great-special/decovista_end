@@ -1,10 +1,6 @@
 from django.db import models
 from product.models import Products
-
-from django.db import models
-from product.models import Products
     
-
 class Cart(models.Model):
     products = models.ManyToManyField(Products, through='CartItem')
 
