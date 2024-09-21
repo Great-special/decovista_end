@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
@@ -52,8 +52,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',
+    # 'cloudinary_storage',
     
     # Our apps
     'appointment.apps.AppointmentConfig',
@@ -129,14 +129,14 @@ DATABASES = {
 }
 
 #  Media Files
-cloudinary.config = {
-    'CLOUD_NAME': config('CLOUD_NAME'),
-    'API_KEY': config('API_KEY'),
-    'API_SECRET': config('API_SECRET'),
-}
+# cloudinary.config = {
+#     'CLOUD_NAME': config('CLOUD_NAME'),
+#     'API_KEY': config('API_KEY'),
+#     'API_SECRET': config('API_SECRET'),
+# }
 
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Password validation
@@ -177,7 +177,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static_files'
 
 
-MEDIA_BASE_URL = 'https://res.cloudinary.com/' + config('CLOUD_NAME')
+# MEDIA_BASE_URL = 'https://res.cloudinary.com/' + config('CLOUD_NAME')
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR/'media'
