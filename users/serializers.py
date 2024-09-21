@@ -13,7 +13,7 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 class DesignerDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DesignerDetails
-        fields = ['years_of_experience', 'specializations', 'profile_picture', 'portfolio', 'portfolio_link', 'bio']
+        fields = ['contact_number', 'address', 'years_of_experience', 'specializations', 'profile_picture', 'portfolio', 'bio']
 
 class CustomUserCreateSerializer(serializers.ModelSerializer):
     user_details = UserDetailsSerializer(required=False)
