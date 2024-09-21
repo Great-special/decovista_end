@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-a8g(uiq$j_v@21f5=i#)3z*vt%=&@276653vwsdy7w$nd2!3i!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', '.circumeo-apps.net']
 
 
 # Application definition
@@ -168,6 +168,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR/'static_files'
 
 
 MEDIA_BASE_URL = 'https://res.cloudinary.com/'
