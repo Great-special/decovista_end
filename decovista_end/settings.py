@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
@@ -123,7 +125,7 @@ DATABASES = {
 }
 
 #  Media Files
-CLOUDINARY_STORAGE = {
+cloudinary.config = {
     'CLOUD_NAME': config('CLOUD_NAME'),
     'API_KEY': config('API_KEY'),
     'API_SECRET': config('API_SECRET'),
@@ -171,8 +173,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static_files'
 
 
-MEDIA_BASE_URL = 'https://res.cloudinary.com/'
-MEDIA_URL = MEDIA_BASE_URL + config('CLOUD_NAME') + '/media/'
+MEDIA_BASE_URL = 'https://res.cloudinary.com/' + config('CLOUD_NAME')
+MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR/'media'
 
