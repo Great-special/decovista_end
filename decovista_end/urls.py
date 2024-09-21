@@ -25,7 +25,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('consultations/', include('appointment.urls')),
     path('blog/', include('blog.urls')),
-    path('cart/', include('cart.urls')),
+    path('carts/', include('cart.urls')),
     path('payment/', include('payment.urls')),
     path('products/', include('product.urls')),
     path('users/', include('users.urls'))
