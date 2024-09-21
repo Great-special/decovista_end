@@ -225,9 +225,9 @@ DJOSER = {
 }
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "https://your-frontend-domain.com",  # If you have a production domain
-# ]
+CORS_ALLOWED_ORIGINS = [
+    ".https://decovista-api.vercel.app",
+    "https://a2w-creative-ampere.circumeo-apps.net",  # If you have a production domain
+]
 
 CORS_ALLOW_ALL_ORIGINS = True

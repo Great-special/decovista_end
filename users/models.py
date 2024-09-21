@@ -25,6 +25,9 @@ class UserDetails(models.Model):
     def __str__(self) -> str:
         return self.user_id.username
     
+    def get_image(self):
+        return self.profile_picture.url if self.profile_picture else None
+    
 
 class DesignerDetails(models.Model):    
     user_details = models.OneToOneField(User, on_delete=models.CASCADE, related_name='designer_details')
