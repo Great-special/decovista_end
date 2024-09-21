@@ -1,14 +1,18 @@
 from django.urls import path
 from .views import (
-    CartDetailView,
-   CartItemDetailView,
-   CartListCreateView,
-   CartItemListCreateView
+    CartListCreateAPIView,
+    CartRetrieveUpdateDestroyAPIView,
+    UserCartAPIView,
+    CartItemCreateAPIView,
+    CartItemUpdateAPIView,
+    CartItemDeleteAPIView,
 )
 
 urlpatterns = [
-    path('', CartListCreateView.as_view(), name='cart-list-create'),
-    path('<int:pk>/', CartDetailView.as_view(), name='cart-detail'),
-    path('cart-items/', CartItemListCreateView.as_view(), name='cartitem-list-create'),
-    path('cart-items/<int:pk>/', CartItemDetailView.as_view(), name='cartitem-detail'),
+    path('', CartListCreateAPIView.as_view(), name='cart-list-create'),
+    path('<int:pk>/', CartRetrieveUpdateDestroyAPIView.as_view(), name='cart-detail'),
+    path('user/cart/', UserCartAPIView.as_view(), name='user-cart'),
+    path('cart-items/', CartItemCreateAPIView.as_view(), name='cartitem-create'),
+    path('cart-items/<int:pk>/', CartItemUpdateAPIView.as_view(), name='cartitem-update'),
+    path('cart-items/<int:pk>/delete/', CartItemDeleteAPIView.as_view(), name='cartitem-delete'),
 ]
