@@ -1,3 +1,4 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import Products, Review, Category
 
@@ -11,6 +12,9 @@ class CategorySerializer(ModelSerializer):
 
 class ProductsSerializer(ModelSerializer):
     category = CategorySerializer(many=True, read_only=True)
+    category_ids = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=Category.objects.all(), write_only=True
+    )
     class Meta:
         model = Products
         fields = "__all__"
