@@ -176,7 +176,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static_files'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA_BASE_URL = 'https://res.cloudinary.com/' + config('CLOUD_NAME')
 MEDIA_URL = 'media/'
